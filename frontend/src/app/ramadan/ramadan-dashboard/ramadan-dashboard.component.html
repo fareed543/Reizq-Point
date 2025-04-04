@@ -1,0 +1,58 @@
+<div class="row">
+
+    
+      <!-- Balance Card -->
+      <div class="col-12 col-md-6 col-lg-12">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-auto">
+                <div class="avatar avatar-44 shadow-sm rounded-10 bg-danger text-white">
+                  <i class="bi bi-phone vm"></i>
+                </div>
+              </div>
+              <div class="col align-self-center ps-0">
+                <p class="mb-0 size-12"><span class="text-color-theme fw-medium">{{'Total Registrations' | translate}}</span></p>
+                <p> {{memberList?.length}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- Bar Chart -->
+      <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="card mb-4">
+          <div class="card-body px-2" *ngIf="packetsData && packetsData.length > 0">
+            <app-packets-bar-chart [packetsData]="packetsData"></app-packets-bar-chart>
+          </div>
+          
+          
+        </div>
+      </div>
+
+
+
+    <!-- Bar Chart -->
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="card mb-4">
+        <div class="card-body px-2" *ngIf="memberList && memberList.length > 0">
+          <app-ramadan-bar-chart [memberList]="memberList"></app-ramadan-bar-chart>
+        </div>
+        
+        <!-- <div class="card-body px-2" *ngIf="expenseData && expenseData.length > 0">
+          <app-vertical-bar-chart [expenseData]="expenseData"></app-vertical-bar-chart>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="card mb-4">
+        <div class="card-body px-2" *ngIf="!!statisticsData?.categories">
+          <app-pie-chart [chartData]="statisticsData?.categories"></app-pie-chart>
+        </div>
+      </div>
+    </div>
+  </div>

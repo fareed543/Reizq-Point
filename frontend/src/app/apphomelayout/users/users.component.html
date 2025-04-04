@@ -1,0 +1,58 @@
+<div class="row mb-3">
+    <div class="col">
+        <h6 class="title">Users<br>
+        </h6>
+    </div>
+    <div class="col-auto align-self-center">
+        <a [routerLink]="['/user']" class="small">Add</a>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col"> 
+        <div class="input-group">
+            <input
+                type="text"
+                class="form-control rounded-start"
+                id="name"
+                placeholder="{{'ENTER_QUERY' | translate}}"
+                [(ngModel)]="queryParam"
+            />
+            <span class="input-group-text bg-white rounded-end" (click)="clearQuery()">
+                <i class="bi" [ngClass]="queryParam ? 'bi-x-circle' : 'bi-search'"></i>
+            </span>
+
+            <!-- Sort Icon -->
+            <span class="input-group-text bg-white" (click)="toggleSortOrder()">
+                <i class="bi" [ngClass]="sortOrder === 'asc' ? 'bi-sort-alpha-down' : 'bi-sort-alpha-down-alt'"></i>
+            </span>
+
+            <span class="input-group-text bg-white" (click)="refreshList()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col-12 px-0">
+        <ul class="list-group list-group-flush bg-none">
+            <li class="list-group-item" [routerLink]="['/user']" (click)="openUser(user)" *ngFor="let user of userList | memberSearch: queryParam | membersSort: sortOrder; trackBy: trackByUser">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="avatar avatar-50 shadow rounded-10 ">
+                            <img *ngIf="!!imagePath+user.image" [src]="imagePath+user.image" [alt]="user?.firstname">
+                        </div>
+                    </div>
+                    <div class="col align-self-center ps-0">
+                        <p class="text-color-theme mb-0">{{user?.firstname}} {{user?.lastname}}</p>
+                        <p class="text-muted size-12">{{user.email}} {{user.username}}</p>
+                    </div>
+                    <div class="col align-self-center text-end">
+                        <!-- <p class="mb-0">{{user?.amount | currency}}</p>
+                        <p class="text-muted size-12">{{user?.date_of_transaction | date: 'EEE, dd MMM yyyy'}}</p> -->
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="closemenu text-muted" (click)="menuclose()">{{'CLOSE_MENU' | translate}}</div>
+<div class="sidebar dark-bg">
+    <div class="row my-3">
+        <div class="col-12 ">
+            <div class="card shadow-sm bg-opac text-white border-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <figure class="avatar avatar-44 rounded-15">
+                                <img [src]="userInfo?.imagePath+userInfo?.image" alt="">
+                            </figure>
+                        </div>
+
+                        <div class="col px-0 align-self-center">
+                            <p class="mb-1">{{userInfo.firstname}} {{userInfo.lastname}}</p>
+                            <p class="text-muted size-12">{{userInfo.customerType}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <button (click)="logout();" routerLinkActive='active' class="btn btn-44 btn-light">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+
+            <ul class="nav nav-pills">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ramadan/dashboard" routerLinkActive='active' (click)="menuclose()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'Dashboard' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ramadan/subscribers-list" routerLinkActive='active'
+                        (click)="menuclose()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'Subscribers' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ramadan/masjid" routerLinkActive='active' (click)="menuclose()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'Masjid' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ramadan/halqa" routerLinkActive='active' (click)="menuclose()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'Halqa' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ramadan/program" routerLinkActive='active' (click)="menuclose()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'Program' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">{{'LOGOUT' |translate}}</div>
+                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

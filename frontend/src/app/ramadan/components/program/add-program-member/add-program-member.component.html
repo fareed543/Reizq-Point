@@ -1,0 +1,48 @@
+<mat-dialog-content class="dialog-container">
+    <div class="row mb-3">
+        <div class="col">
+            <h6 class="title">{{ 'ASSIGN_MEMBER' | translate }}</h6>
+        </div>
+    </div>
+
+    <form [formGroup]="assignMemberForm">
+        <!-- Name/Phone Search Field -->
+        <div class="form-group form-floating mb-3 position-relative">
+            <input type="text" class="form-control" id="customerSearch" placeholder="Enter Name or Phone" formControlName="customerSearch">
+            <label for="customerSearch">{{ 'SEARCH_CUSTOMER' | translate }}</label>
+            <!-- Dropdown List for Search Results -->
+            <ul *ngIf="(customers$ | async)?.length" class="dropdown-menu show">
+                <li *ngFor="let customer of customers$ | async" (click)="selectCustomer(customer)" class="dropdown-item">
+                    {{ customer.firstname }} {{ customer.lastname }} - {{ customer.phone }}
+                </li>
+            </ul>
+        </div>
+        
+
+        <!-- Program ID (Hidden, auto-filled) -->
+        <input type="hidden" formControlName="customerId">
+        <input type="hidden" formControlName="programId">
+
+        <!-- Role Selection -->
+        <div class="form-group form-floating mb-3">
+            <select class="form-control" id="role" formControlName="role">
+                <option [value]="1">{{ 'ORGANIZER' | translate }}</option>
+                <option [value]="2">{{ 'VOLUNTEER' | translate }}</option>
+                <option [value]="3">{{ 'SUBSCRIBER' | translate }}</option>
+            </select>
+            <label for="role">{{ 'ROLE' | translate }}</label>
+        </div>
+
+      
+        
+
+        <!-- Submit Button -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <button class="btn btn-default btn-lg shadow-sm w-100" (click)="submit()">
+                    {{ 'SAVE' | translate }}
+                </button>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>

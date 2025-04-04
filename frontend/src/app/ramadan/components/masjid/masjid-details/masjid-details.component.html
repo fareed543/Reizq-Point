@@ -1,0 +1,102 @@
+<div class="row mb-3">
+    <div class="col">
+        <h6 class="title">{{ 'DETAILS' | translate }}<br></h6>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <form [formGroup]="masjidForm">
+
+
+        <!-- Name -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['name']?.valid && (masjidForm.controls['name']?.dirty || masjidForm.controls['name']?.touched)"
+            [class.is-invalid]="masjidForm.controls['name']?.invalid && (masjidForm.controls['name']?.dirty || masjidForm.controls['name']?.touched)">
+            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+            <label for="name">{{ 'NAME' | translate }}</label>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['address']?.valid && (masjidForm.controls['address']?.dirty || masjidForm.controls['address']?.touched)"
+            [class.is-invalid]="masjidForm.controls['address']?.invalid && (masjidForm.controls['address']?.dirty || masjidForm.controls['address']?.touched)">
+            <textarea class="form-control" id="address" formControlName="address" placeholder="Address"></textarea>
+            <label for="address">{{ 'ADDRESS' | translate }}</label>
+        </div>
+
+        <!-- Area -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['area']?.valid && (masjidForm.controls['area']?.dirty || masjidForm.controls['area']?.touched)"
+            [class.is-invalid]="masjidForm.controls['area']?.invalid && (masjidForm.controls['area']?.dirty || masjidForm.controls['area']?.touched)">
+            <input type="text" class="form-control" id="area" placeholder="Area" formControlName="area">
+            <label for="area">{{ 'AREA' | translate }}</label>
+        </div>
+
+        <!-- City -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['city']?.valid && (masjidForm.controls['city']?.dirty || masjidForm.controls['city']?.touched)"
+            [class.is-invalid]="masjidForm.controls['city']?.invalid && (masjidForm.controls['city']?.dirty || masjidForm.controls['city']?.touched)">
+            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city">
+            <label for="city">{{ 'CITY' | translate }}</label>
+        </div>
+
+        <!-- State -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['state']?.valid && (masjidForm.controls['state']?.dirty || masjidForm.controls['state']?.touched)"
+            [class.is-invalid]="masjidForm.controls['state']?.invalid && (masjidForm.controls['state']?.dirty || masjidForm.controls['state']?.touched)">
+            <input type="text" class="form-control" id="state" placeholder="State" formControlName="state">
+            <label for="state">{{ 'STATE' | translate }}</label>
+        </div>
+
+        <!-- Pincode -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['pincode']?.valid && (masjidForm.controls['pincode']?.dirty || masjidForm.controls['pincode']?.touched)"
+            [class.is-invalid]="masjidForm.controls['pincode']?.invalid && (masjidForm.controls['pincode']?.dirty || masjidForm.controls['pincode']?.touched)">
+            <input type="text" class="form-control" id="pincode" placeholder="Pincode" formControlName="pincode">
+            <label for="pincode">{{ 'PINCODE' | translate }}</label>
+        </div>
+
+        <!-- Country -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['country']?.valid && (masjidForm.controls['country']?.dirty || masjidForm.controls['country']?.touched)"
+            [class.is-invalid]="masjidForm.controls['country']?.invalid && (masjidForm.controls['country']?.dirty || masjidForm.controls['country']?.touched)">
+            <input type="text" class="form-control" id="country" placeholder="Country" formControlName="country">
+            <label for="country">{{ 'COUNTRY' | translate }}</label>
+        </div>
+
+        <!-- Status -->
+        <div class="form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['status']?.valid && (masjidForm.controls['status']?.dirty || masjidForm.controls['status']?.touched)"
+            [class.is-invalid]="masjidForm.controls['status']?.invalid && (masjidForm.controls['status']?.dirty || masjidForm.controls['status']?.touched)">
+            <select class="form-control" id="status" formControlName="status">
+                <option selected>{{ 'SELECT_STATUS' | translate }}</option>
+                <option value="1">{{ 'Active' | translate }}</option>
+                <option value="0">{{ 'Inactive' | translate }}</option>
+            </select>
+            <label for="status">{{ 'STATUS' | translate }}</label>
+        </div>
+
+
+        <!-- <div class="form-floating mb-3"
+            [class.is-valid]="masjidForm.controls['id_halqa']?.valid && (masjidForm.controls['id_halqa']?.dirty || masjidForm.controls['id_halqa']?.touched)"
+            [class.is-invalid]="masjidForm.controls['id_halqa']?.invalid && (masjidForm.controls['id_halqa']?.dirty || masjidForm.controls['id_halqa']?.touched)">
+            <select class="form-control" id="id_halqa" formControlName="id_halqa">
+                <option value="1">{{ 'Active' | translate }}</option>
+                <option value="0">{{ 'Inactive' | translate }}</option>
+            </select>
+            <label for="status">{{ 'Halqa' | translate }}</label>
+        </div> -->
+
+        <!-- Hidden Fields -->
+        <input type="hidden" formControlName="id_customer">
+        <input type="hidden" formControlName="id_halqa">
+    </form>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <button (click)="onSubmit()" class="btn btn-default btn-lg shadow-sm w-100">
+            {{ 'SAVE' | translate }}
+        </button>
+    </div>
+</div>

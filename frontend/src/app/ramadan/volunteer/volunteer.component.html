@@ -1,0 +1,65 @@
+<app-sidebar class="sidebar-wrap  sidebar-pushcontent"></app-sidebar>
+
+<main #mainPage>
+    <app-headermenu class="header position-fixed" #HeaderEl></app-headermenu>
+    <div class="main-container container">
+
+
+
+        <div class="row mb-3">
+            <div class="col">
+                <h6 class="title">Sehri Selction<br></h6>
+            </div>
+
+
+            <div class="col-auto align-self-center">
+                <span>
+                    <!-- <i (click)="onSubmit()"  class="nav-icon bi bi-pencil-fill"></i> -->
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="row mb-4">
+            <form [formGroup]="ramadanForm">
+                <div class="col-12 px-0">
+                    <ul class="list-group list-group-flush bg-none" formArrayName="days">
+                        <li class="list-group-item" *ngFor="let day of daysControls; let i = index" [formGroupName]="i">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    Day {{ i + 1 }} - {{ day.get('date')?.value }}
+                                </div>
+                                <div class="col align-self-center ps-0"> </div>
+                                <div class="col-auto d-flex flex-column align-items-center ms-auto">
+                                    <mat-radio-group formControlName="observed">
+                                        <mat-radio-button value="yes">Yes</mat-radio-button>
+                                        <mat-radio-button value="no">No</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="row mb-4">
+            <div class="col-12 ">
+                <button (click)="onSubmit()" class="btn btn-default btn-lg shadow-sm w-100">
+                    {{'SAVE' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+
+
+    </div>
+    
+</main>
+
+
+<app-staticfooter class="footer" #FooterEl></app-staticfooter>

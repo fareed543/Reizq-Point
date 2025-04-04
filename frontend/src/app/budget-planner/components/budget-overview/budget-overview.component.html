@@ -1,0 +1,90 @@
+<div class="row mb-3">
+    <div class="col">
+      <h6 class="title">{{ 'BUDGET_PLANNER' | translate }}<br></h6>
+    </div>
+    <div class="col-auto align-self-center">
+      <select 
+        [(ngModel)]="currentYear" 
+        class="form-select" 
+        aria-label="Select Year" 
+        (change)="getBudgetAllocations()">
+        <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+    <div class="col-auto align-self-center">
+        <select 
+          [(ngModel)]="currentMonth" 
+          class="form-select" 
+          aria-label="Select Year" 
+          (change)="getBudgetAllocations()">
+          <option *ngFor="let month of monthList" [value]="month.id">{{ month.name }}</option>
+        </select>
+      </div>
+
+      <div class="col-auto align-self-center">
+        <span>
+            <i (click)="onSubmit()"  class="nav-icon bi bi-pencil-fill"></i>
+        </span>
+      </div>
+
+  </div>
+
+  <div class="container p-3">
+    <div 
+        *ngFor="let typeItem of categoryTypesList"
+        [hidden]="getTotalAllocatedAmountByType(typeItem.id_type) <= 0"
+        class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2"
+    >
+        <span class="">{{ typeItem.name | titlecase }}</span>
+        <span >
+            {{ getTotalAllocatedAmountByType(typeItem.id_type) | currency }} - 
+            {{ getTotalExpenseByType(typeItem.id_type) | currency }} = 
+            <span >
+                {{ (getTotalAllocatedAmountByType(typeItem.id_type) - getTotalExpenseByType(typeItem.id_type)) | currency }}
+            </span>
+        </span>
+    </div>
+</div>
+  
+
+<div *ngIf="categoryList">
+    <div class="row mb-4">
+        <mat-tab-group>
+            <mat-tab *ngFor="let type of categoryTypesList">
+                <ng-template mat-tab-label>
+                    {{type.name | titlecase}}
+                </ng-template>
+                <div class="col-12 px-0">
+                    <ul class="list-group list-group-flush bg-none">
+                        <li class="list-group-item" *ngFor="let category of categoryList | filterByCategoryType: type.id_type ; let i = index">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    <div class="avatar avatar-50 shadow rounded-10">
+                                        <img *ngIf="!!categoryImagePath + category.category_image" [src]="categoryImagePath + category.category_image" [alt]="category?.expense_name">
+                                    </div>
+                                </div>
+                                <div class="col align-self-center ps-0">
+                                    <p class="text-color-theme mb-0">{{category?.category_name}}</p>
+                                    <p class="text-muted size-12">{{category.status == 1 ? 'Active' : 'In-Active'}}</p>
+                                </div>
+                                <div class="col-auto d-flex flex-column align-items-center ms-auto">
+                                    <mat-progress-bar
+                                      class="thick-progress-bar"
+                                      mode="determinate"
+                                      [value]="((category.expense_amount || 0) / (category.allocated_amount || 1) * 100) | number: '1.0-0'">
+                                    </mat-progress-bar>
+                                  
+                                    <span class="text-muted size-12 mt-1">
+                                      {{ category.expense_amount }} / {{ category.allocated_amount }}
+                                      (<b>{{ ((category.expense_amount || 0) / (category.allocated_amount || 1) * 100) | number: '1.0-0' }}%</b>)
+                                      
+                                    </span>
+                                  </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

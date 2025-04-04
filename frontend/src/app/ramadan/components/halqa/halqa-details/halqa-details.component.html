@@ -1,0 +1,82 @@
+<div class="row mb-3">
+    <div class="col">
+        <h6 class="title">{{ 'HALQA_DETAILS' | translate }}<br></h6>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <form [formGroup]="halqaForm">
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['name']?.valid && (halqaForm.controls['name']?.dirty || halqaForm.controls['name']?.touched)"
+            [class.is-invalid]="halqaForm.controls['name']?.invalid && (halqaForm.controls['name']?.dirty || halqaForm.controls['name']?.touched)">
+            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+            <label for="name">{{ 'NAME' | translate }}</label>
+        </div>
+
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['address']?.valid && (halqaForm.controls['address']?.dirty || halqaForm.controls['address']?.touched)"
+            [class.is-invalid]="halqaForm.controls['address']?.invalid && (halqaForm.controls['address']?.dirty || halqaForm.controls['address']?.touched)">
+            <textarea class="form-control" id="address" formControlName="address" placeholder="Address"></textarea>
+            <label for="address">{{ 'ADDRESS' | translate }}</label>
+        </div>
+
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['description']?.valid && (halqaForm.controls['description']?.dirty || halqaForm.controls['description']?.touched)"
+            [class.is-invalid]="halqaForm.controls['description']?.invalid && (halqaForm.controls['description']?.dirty || halqaForm.controls['description']?.touched)">
+            <textarea class="form-control" id="description" formControlName="description" placeholder="Description"></textarea>
+            <label for="description">{{ 'DESCRIPTION' | translate }}</label>
+        </div>
+
+        <!-- City Field -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['city']?.valid && (halqaForm.controls['city']?.dirty || halqaForm.controls['city']?.touched)"
+            [class.is-invalid]="halqaForm.controls['city']?.invalid && (halqaForm.controls['city']?.dirty || halqaForm.controls['city']?.touched)">
+            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city">
+            <label for="city">{{ 'CITY' | translate }}</label>
+        </div>
+
+        <!-- State Field -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['state']?.valid && (halqaForm.controls['state']?.dirty || halqaForm.controls['state']?.touched)"
+            [class.is-invalid]="halqaForm.controls['state']?.invalid && (halqaForm.controls['state']?.dirty || halqaForm.controls['state']?.touched)">
+            <input type="text" class="form-control" id="state" placeholder="State" formControlName="state">
+            <label for="state">{{ 'STATE' | translate }}</label>
+        </div>
+
+        <!-- Country Field -->
+        <div class="form-group form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['country']?.valid && (halqaForm.controls['country']?.dirty || halqaForm.controls['country']?.touched)"
+            [class.is-invalid]="halqaForm.controls['country']?.invalid && (halqaForm.controls['country']?.dirty || halqaForm.controls['country']?.touched)">
+            <input type="text" class="form-control" id="country" placeholder="Country" formControlName="country">
+            <label for="country">{{ 'COUNTRY' | translate }}</label>
+        </div>
+
+        <div class="form-floating mb-3"
+            [class.is-valid]="halqaForm.controls['status']?.valid && (halqaForm.controls['status']?.dirty || halqaForm.controls['status']?.touched)"
+            [class.is-invalid]="halqaForm.controls['status']?.invalid && (halqaForm.controls['status']?.dirty || halqaForm.controls['status']?.touched)">
+            <select class="form-control" id="status" formControlName="status">
+                <option selected>{{ 'SELECT_STATUS' | translate }}</option>
+                <option value="1">{{ 'Active' | translate }}</option>
+                <option value="0">{{ 'Inactive' | translate }}</option>
+            </select>
+            <label for="status">{{ 'STATUS' | translate }}</label>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>{{ 'Masjids' }}</mat-label>
+            <mat-select formControlName="masjids" multiple>
+              <mat-option *ngFor="let masjid of masjidList" [value]="masjid.id">
+                {{ masjid.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <button (click)="onSubmit()" class="btn btn-default btn-lg shadow-sm w-100">
+            {{ 'SAVE' | translate }}
+        </button>
+    </div>
+</div>

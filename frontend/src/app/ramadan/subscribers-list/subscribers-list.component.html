@@ -1,0 +1,145 @@
+<div class="row mb-3">
+    <div class="col">
+        <h6 class="title">{{'SUBSCRIBERS' | translate}} 
+            ({{memberList?.length }})
+        </h6>
+    </div>
+    <div class="col-auto align-self-center">
+        <!-- <a [routerLink]="['/user']" class="small">{{'ADD' |translate}}</a> -->
+    </div>
+</div>
+
+<div class="row mt-3 mb-3" *ngIf="programList.length > 1">
+    <div class="col">
+        <div class="input-group">
+            <select
+                class="form-control rounded-start"
+                id="name"
+                [(ngModel)]="selectedProgram"
+                (change)="getSubscribers(selectedProgram)"
+            >
+                <option value="" disabled>{{ 'SELECT_PROGRAM' | translate }}</option>
+                <option *ngFor="let program of programList" [value]="program.id_program">
+                    {{ program.name }}
+                </option>
+            </select>
+
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3 mb-3">
+    <div class="col">
+        <div class="input-group">
+            <input
+                type="text"
+                class="form-control rounded-start"
+                id="name"
+                placeholder="{{'ENTER_QUERY' | translate}}"
+                [(ngModel)]="queryParam"
+            />
+            <span class="input-group-text bg-white rounded-end" (click)="clearQuery()">
+                <i class="bi" [ngClass]="queryParam ? 'bi-x-circle' : 'bi-search'"></i>
+            </span>
+
+            <!-- Sort Icon -->
+            <!-- <span class="input-group-text bg-white" (click)="toggleSortOrder()">
+                <i class="bi" [ngClass]="sortOrder === 'asc' ? 'bi-sort-alpha-down' : 'bi-sort-alpha-down-alt'"></i>
+            </span> -->
+
+            <span class="input-group-text bg-white" (click)="refreshList()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </span>
+
+            <span class="input-group-text bg-white" (click)="exportToExcel()">
+                <i class="bi bi-file-earmark-excel"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<mat-tab-group>
+    <mat-tab 
+    [label]="'Active (' + (memberList | memberSearch: queryParam |  subscribersDateFilter: '2025-03-10' : 'before')?.length + ')'">
+     
+        <div class="row mt-3 mb-4">
+            <div class="col-12 px-0">
+                <ul class="list-group list-group-flush bg-none" *ngIf="memberList && memberList.length > 0">
+                    <li class="list-group-item"   *ngFor="let member of memberList  | 
+                    memberSearch: queryParam | 
+                    subscribersDateFilter: '2025-03-10' : 'before';
+                    trackBy: trackByUser">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="avatar avatar-50 shadow rounded-10 ">
+                                    <img [src]="userImagePath + member?.image" [alt]="member?.member_name">
+                                </div>
+                            </div>
+                            <div class="col align-self-center ps-0">
+                                <div class="col align-self-center ps-0">
+                                    <p class="text-color-theme mb-0">{{ member?.firstname }} {{ member?.lastname }}</p>
+                                    <p class="text-muted size-12 mb-0">Phone: {{ member?.phone }}</p>
+                                    <p class="text-muted size-12 mb-0">Occupation: {{ member?.occupation }}</p>
+                                    <p class="text-muted size-12 mb-0" *ngIf="member?.occupation === 'professional'">{{ member?.company_name }}</p>
+                                    <p class="text-muted size-12 mb-0">{{ member?.masjid }}</p>
+                                </div>
+                            </div>
+                            <div class="col-auto align-self-center text-end d-flex gap-2">
+                                <span class="input-group-text bg-white" (click)="openMember(member)">
+                                    <i class="bi bi-pencil"></i> 
+                                </span>
+                                <span class="input-group-text bg-white" (click)="assignPacket(member)">
+                                    <i class="bi bi-clipboard-check"></i> 
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </mat-tab>
+  
+    <mat-tab 
+    [label]="'Waiting (' + (memberList | memberSearch: queryParam | membersSort: sortOrder | subscribersDateFilter: '2025-03-10' : 'after')?.length + ')'">
+      
+ 
+        <div class="row mt-3 mb-4">
+            <div class="col-12 px-0">
+                <ul class="list-group list-group-flush bg-none" *ngIf="memberList && memberList.length > 0">
+                    <li class="list-group-item" (click)="openMember(member)"  *ngFor="let member of memberList  | 
+                    memberSearch: queryParam | 
+                    membersSort: sortOrder | 
+                    subscribersDateFilter: '2025-03-10' : 'after'
+                    trackBy: trackByUser">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="avatar avatar-50 shadow rounded-10 ">
+                                    <img [src]="userImagePath + member?.image" [alt]="member?.member_name">
+                                </div>
+                            </div>
+                            <div class="col align-self-center ps-0">
+                                <div class="col align-self-center ps-0">
+                                    <p class="text-color-theme mb-0">{{ member?.firstname }} {{ member?.lastname }}</p>
+                                    <p class="text-muted size-12 mb-0">Phone: {{ member?.phone }}</p>
+                                    <p class="text-muted size-12 mb-0">Occupation: {{ member?.occupation }}</p>
+                                    <p class="text-muted size-12 mb-0" *ngIf="member?.occupation === 'professional'">{{ member?.company_name }}</p>
+                                    <p class="text-muted size-12 mb-0">{{ member?.masjid }}</p>
+                                </div>
+                            </div>
+                            <div class="col-auto align-self-center text-end d-flex gap-2">
+                                <span class="input-group-text bg-white" (click)="openMember(member)">
+                                    <i class="bi bi-pencil"></i> 
+                                </span>
+                                <span class="input-group-text bg-white" (click)="assignPacket(member)">
+                                    <i class="bi bi-clipboard-check"></i> 
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+

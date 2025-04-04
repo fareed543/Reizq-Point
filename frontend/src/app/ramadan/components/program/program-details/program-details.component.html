@@ -1,0 +1,137 @@
+
+
+
+<form [formGroup]="programForm">
+    <div class="form-group form-floating mb-3"
+        [class.is-valid]="programForm.controls['name']?.valid && (programForm.controls['name']?.dirty || programForm.controls['name']?.touched)"
+        [class.is-invalid]="programForm.controls['name']?.invalid && (programForm.controls['name']?.dirty || programForm.controls['name']?.touched)">
+        <input type="text" class="form-control" id="name" placeholder="Program Name" formControlName="name">
+        <label for="name">{{ 'PROGRAM_NAME' | translate }}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select class="form-control" id="halqa" formControlName="id_halqa">
+            <option *ngFor="let halqa of halqaList" [value]="halqa.id">
+                {{ halqa.name | translate }}
+            </option>
+        </select>
+        <label for="halqa">{{ 'SELECT_HALQA' | translate }}</label>
+    </div>
+    
+    <div class="form-group form-floating mb-3"
+        [class.is-valid]="programForm.controls['code']?.valid && (programForm.controls['code']?.dirty || programForm.controls['code']?.touched)"
+        [class.is-invalid]="programForm.controls['code']?.invalid && (programForm.controls['code']?.dirty || programForm.controls['code']?.touched)">
+        <input type="text" class="form-control" id="code" placeholder="Code" formControlName="code">
+        <label for="code">{{ 'PROGRAM_CODE' | translate }}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="start_date" formControlName="start_date">
+        <label for="start_date">{{ 'START_DATE' | translate }}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="end_date" formControlName="end_date">
+        <label for="end_date">{{ 'END_DATE' | translate }}</label>
+    </div>
+
+    <div class="form-group form-floating mb-3">
+        <input type="text" class="form-control" id="contact_number" placeholder="Contact Number" formControlName="contact_number">
+        <label for="contact_number">{{ 'CONTACT_NUMBER' | translate }}</label>
+    </div>
+
+    <div class="form-group form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
+        <label for="email">{{ 'EMAIL' | translate }}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select class="form-control" id="registration_allowed" formControlName="registration_allowed">
+            <option [value]="1">{{ 'YES' | translate }}</option>
+            <option [value]="0">{{ 'NO' | translate }}</option>
+        </select>
+        <label for="registration_allowed">{{ 'REGISTRATION_ALLOWED' | translate }}</label>
+    </div>
+    
+
+
+    <div class="form-group form-floating mb-3">
+        <input type="number" class="form-control" id="max_participants" placeholder="Max Participants" formControlName="max_participants">
+        <label for="max_participants">{{ 'MAX_PARTICIPANTS' | translate }}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select class="form-control" id="waitlist_enabled" formControlName="waitlist_enabled">
+            <option value="1">{{ 'YES' | translate }}</option>
+            <option value="0">{{ 'NO' | translate }}</option>
+        </select>
+        <label for="waitlist_enabled">{{ 'WAITLIST_ENABLED' | translate }}</label>
+    </div>
+
+    <div class="form-group form-floating mb-3">
+        <textarea class="form-control" id="description" formControlName="description" placeholder="Description"></textarea>
+        <label for="description">{{ 'DESCRIPTION' | translate }}</label>
+    </div>
+
+
+    <div class="form-floating mb-3">
+        <select class="form-control" id="status" formControlName="status">
+            <option value="1">{{ 'ACTIVE' | translate }}</option>
+            <option value="0">{{ 'INACTIVE' | translate }}</option>
+        </select>
+        <label for="status">{{ 'STATUS' | translate }}</label>
+    </div>
+
+    <div *ngIf="mappedUsers?.length">
+
+        <div class="row mb-3">
+            <div class="col">
+                <h6>{{ 'Participants' | translate }}</h6>
+            </div>
+        
+            <div class="col-auto align-self-center">
+                <a (click)="addMember()" class="small">+ {{'Add' |translate}}</a>
+            </div>
+        </div>
+    
+        <div class="row mb-4">
+            <div class="col-12 px-0">
+                <ul class="list-group list-group-flush bg-none">
+                    <li class="list-group-item" *ngFor="let user of mappedUsers">
+                        <div class="row">
+                            <div class="col-auto">
+                                <!-- If you have user images, uncomment and update this -->
+                                <!-- <div class="avatar avatar-50 shadow rounded-10">
+                                    <img *ngIf="user.image" [src]="user.image" [alt]="user.firstname">
+                                </div> -->
+                            </div>
+                            <div class="col align-self-center ps-0">
+                                <p class="text-color-theme mb-0">{{ user.firstname }} {{ user.lastname }}</p>
+                                <p class="text-muted size-12">{{ user.role == 1 ? 'Organizer' : 'Volunteer' | translate }}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+
+
+    <div class="row mb-4">
+        <div [ngClass]="{'col-12': userInfo?.id != programData?.id_customer, 'col-6': userInfo?.id == programData?.id_customer}">
+            <button (click)="navigateBack()" class="btn btn-secondary btn-lg shadow-sm w-100">
+                {{ 'CANCEL' | translate }}
+            </button>
+        </div>
+        <div class="col-6" *ngIf="userInfo?.id == programData?.id_customer">
+            <button (click)="onSubmit()" class="btn btn-default btn-lg shadow-sm w-100">
+                {{ 'SAVE' | translate }}
+            </button>
+        </div>
+    </div>
+    
+    
+</form>
